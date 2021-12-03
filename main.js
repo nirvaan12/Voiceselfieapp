@@ -26,6 +26,11 @@ speakdata = "Taking your selfie in 5 seconds";
 var utterThis= new SpeechSynthesisUtterance(speakdata);
 synth.speak(utterThis);
 Webcam.attach(camera);
+
+setTimeout(function(){
+    takesnapshot();
+    save();
+},5000);
 }
 
 camera= document.getElementById("camera");
@@ -35,3 +40,17 @@ height:250,
 image_format:"jpeg",
 jpeg_quality:90
 });
+function takesnapshot(){
+    Webcam.snap(function(data_uri){
+        document.getElementById("result").innerHTML= "<img id='selfieimg' src='"+data_uri+"'>";
+    });
+
+}
+
+
+function save(){
+    link=document.getElementById("link");
+    image= document.getElementById("selfieimg");
+    link.href=image;
+    link.click();
+}
